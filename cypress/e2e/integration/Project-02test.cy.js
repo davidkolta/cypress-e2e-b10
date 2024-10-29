@@ -1,79 +1,61 @@
 /// <reference types="cypress" />
-
+/*
+test case - 01
+*/
 describe('Contact Us Information Validation', () => {
     beforeEach(() => {
-        // Navigate to the website
         cy.visit('https://techglobal-training.com/frontend/project-1');
     });
 
     it('should have the correct heading', () => {
-        // Validate the heading
+  
         cy.get('.is-size-3').should('be.visible');
         cy.get('#address').should('be.visible');
         cy.get('#email').should('be.visible');
         cy.get('#phone-number').should('be.visible');;
     });
-
-  
 });
 
 /*
-
+test case - 02
 */
 
 describe('Valitade the Full name input box', () => {
     beforeEach(() => {
-        // Navigate to the website
         cy.visit('https://techglobal-training.com/frontend/project-1');
     });
 
     it('should validate the Full name input box', () => {
-        // Validate the heading
+
         cy.get('form > :nth-child(1) > .label').should('be.visible');
         cy.get(':nth-child(1) > .control > .input').should('have.attr', 'required');
         cy.get('form > :nth-child(1) > .label').should('have.text', 'Full name *');
         cy.get(':nth-child(1) > .control > .input').should('have.attr', 'placeholder', 'Enter your full name') });
 
-  
 });
 
 
 /*
-
+test case - 03
 */
 
 describe('Validte the Gender radio button ', () => {
     beforeEach(() => {
-        // Navigate to the website
         cy.visit('https://techglobal-training.com/frontend/project-1');
     });
 
     it('should validate the Gender radio button ', () => {
-        // Validate the heading
         cy.get('.control > .label').should('have.text', 'Gender *');
         cy.get('div.control label.label')})
 
         it('should validate the options and their states', () => {
             const options = ['Male', 'Female', 'Prefer not to disclose'];
-            
             options.forEach(option => {
                 cy.contains(option)
                   .should('be.visible')
                   .and('not.be.checked');
             });
-
-           
-
         });
-        it('should validate clicking and selecting options', () => {
-            
-        cy.contains('Female').should('not.be.checked');
-        cy.contains('Prefer not to disclose').should('not.be.checked');
-        cy.contains('Male').should('not.be.checked');
-        cy.contains('Prefer not to disclose').should('not.be.checked');
-        });
-
-  
 });
 
 /*
@@ -104,15 +86,10 @@ describe('Email Input Box Validation', () => {
     before(() => {
         cy.visit('https://techglobal-training.com/frontend/project-1');
     });
-
     it('should validate the Email input box', () => {
-
         cy.get('div:nth-child(4) label:nth-child(1)').should('not.have.attr', 'required');
-
-
         cy.get('input[placeholder="Enter your email"]').should('have.attr', 'placeholder', 'Enter your email');
         
-    
     });
 });
 
@@ -145,7 +122,6 @@ describe('Message Text Area Validation', () => {
     });
 
     it('should validate the Message text area', () => {
-        
         cy.get('textarea[placeholder="Type your message here..."]').should('be.visible');
         cy.get('textarea[placeholder="Type your message here..."]').should('not.have.attr', 'required');
         cy.get('div:nth-child(6) label:nth-child(1)').should('have.text', 'Message');
@@ -166,7 +142,6 @@ describe('Consent Checkbox Validation', () => {
     });
 
     it('should validate the Consent checkbox', () => {
-    
         cy.get('label').contains('I give my consent to be contacted.').should('exist');
         cy.get('input[type="checkbox"]').should('have.attr', 'required');
         cy.get('input[type="checkbox"]').should('be.visible').and('not.be.checked').click().should('be.checked');
@@ -204,7 +179,7 @@ describe('Consent Checkbox Validation', () => {
         });
     });
 
-    it.only('should validate the Consent checkbox and handle exceptions', () => {
+    it('should validate the Consent checkbox and handle exceptions', () => {
      
         cy.get('input[placeholder="Enter your full name"]').type('David');
         cy.get('label[class="radio"]').click();
