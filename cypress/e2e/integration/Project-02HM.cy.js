@@ -2,8 +2,28 @@ describe('Login Page Validation', () => {
     beforeEach(() => {
       cy.visit('https://techglobal-training.com/frontend/project-2')
     })
+
+    /*
+
+    Test case - 01 
+Navigate to https://techglobal-training.com/frontend/project-2
+Validate that the username input box is displayed
+Validate that the username input box is not required
+Validate that the label of the username input box is “Please enter your username”
+Validate that the password input box is displayed
+Validate that the password input box is not required
+Validate that the label of the password input box is “Please enter your password”
+Validate the “LOGIN” button is displayed
+Validate the “LOGIN” button is clickable
+Validate that the button text is “LOGIN”
+Validate the “Forgot Password?” link is displayed
+Validate that the “Forgot Password?” link is clickable
+Validate that the link text is “Forgot Password?”
+
+
+    */
   
-    it('validates the login form elements', () => {
+    it('validates the login form', () => {
 
       cy.get('#username')
         .should('be.visible')
@@ -30,10 +50,27 @@ describe('Login Page Validation', () => {
     .and('have.text', 'Forgot Password?');
     })
     // Test case 02 + 03 together 
-    
+    /*
+Test Case 02 - Validate the valid login
+Navigate to https://techglobal-training.com/frontend/project-2
+Enter the username as “TechGlobal”
+Enter the password as “Test1234”
+Click on the “LOGIN” button
+Validate the success message is displayed as “You are logged in”
+Validate the logout button displayed with the text “LOGOUT”
+
+Test Case 03 - Validate the logout
+Navigate to https://techglobal-training.com/frontend/project-2
+Enter the username as “TechGlobal”
+Enter the password as “Test1234”
+Click on the “LOGIN” button
+Click on the “LOGOUT” button
+Validate that the login form is displayed
+
+    */
     
 
-    it('should login successfully, validate login, then logout and validate form displayed', () => {
+    it('login successfully, validate login, then logout and validate form displayed', () => {
    
         cy.get('#username').type('TechGlobal')
         cy.get('#password').type('Test1234')
@@ -53,7 +90,7 @@ describe('Login Page Validation', () => {
 });
 
 //tast - case 04
-it('should validate the Forgot Password modal elements', () => {
+it('validate the Forgot Password modal elements', () => {
 
     cy.contains("a[href='/frontend/project-2']", 'Forgot Password?').click()
     cy.get('.modal-card-title').should('be.visible').and('have.text', 'Reset Password')
@@ -80,11 +117,8 @@ Validate that the “Reset Password” modal is displayed
 Click on the close button
 Validate that the “Reset Password” modal is closed
   */
-it('should open and close the Reset Password modal', () => {
-    // Navigate to the specified URL
+it('open and close the Reset Password modal', () => {
    
-
-    // Click on the "Forgot Password?" link
     cy.contains("a[href='/frontend/project-2']", 'Forgot Password?').click()
     cy.get('#modal_title').should('have.text', 'Reset Password')
     cy.get("button[aria-label='close']").click()
@@ -99,7 +133,7 @@ it('should open and close the Reset Password modal', () => {
     Validate the form message “A link to reset your password has been sent to your email address.” is displayed under the “SUBMIT” button
   */
 
-  it('should submit the reset password form and validate the success message', () => {
+  it('submit the reset password form and validate the success message', () => {
 
     cy.contains("a[href='/frontend/project-2']", 'Forgot Password?').click()
     cy.get('input[type="email"]').type('test@example.com')
@@ -142,7 +176,7 @@ Validate the failure message is displayed as “Invalid Username entered!” abo
           ]
 
           testCases.forEach((testCase) => {
-            it(`should display error message for ${testCase.name}`, () => {
+            it(`display error message for ${testCase.name}`, () => {
               if (testCase.username) {
                 cy.get('#username').type(testCase.username)
               }
@@ -170,7 +204,7 @@ Enter the password as “1234”
 Click on the “LOGIN” button
 Validate the failure message is displayed as “Invalid Password entered!” above the form
 */
-it('should display error message for invalid password', () => {
+it('display error message for invalid password', () => {
 
     cy.get('#username').type('TechGlobal')
     cy.get('#password').type('1234')
@@ -195,7 +229,7 @@ Click on the “LOGIN” button
 Validate the failure message is displayed as “Invalid Username entered!” above the form
 
 */
-it('should display error message for invalid username and password', () => {
+it('display error message for invalid username and password', () => {
 
     cy.get('#username').type('John')
     cy.get('#password').type('1234')
