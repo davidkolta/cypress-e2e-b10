@@ -9,10 +9,13 @@ describe('Contact Us Information Validation', () => {
 
     it('should have the correct heading', () => {
   
-        cy.get('.is-size-3').should('be.visible');
-        cy.get('#address').should('be.visible');
-        cy.get('#email').should('be.visible');
-        cy.get('#phone-number').should('be.visible');;
+        cy.get('.is-size-3').as('header').should('have.text', 'Contact Us');
+        const expectTexts = ['2800 S River Rd Suite 310, Des Plaines, IL 60018', 'info@techglobalschool.com', '(224) 580-2150']
+        cy.get('@header').nextAll().each((ele, index) => { 
+        cy.wrap(ele).should('have.text', expectTexts[index])
+
+        })
+       
     });
 });
 
@@ -27,10 +30,11 @@ describe('Valitade the Full name input box', () => {
 
     it('should validate the Full name input box', () => {
 
-        cy.get('form > :nth-child(1) > .label').should('be.visible');
-        cy.get(':nth-child(1) > .control > .input').should('have.attr', 'required');
-        cy.get('form > :nth-child(1) > .label').should('have.text', 'Full name *');
-        cy.get(':nth-child(1) > .control > .input').should('have.attr', 'placeholder', 'Enter your full name') });
+        cy.get('form > :nth-child(1) > .label').parent().find('input').should('be.visible')
+        .and('have.attr', 'placeholder', 'Enter your full name')
+        .and('have.attr', 'required')
+        cy.get('[for="name"]').should('have.text', 'Full name *') 
+    })
 
 });
 
@@ -44,19 +48,20 @@ describe('Validte the Gender radio button ', () => {
         cy.visit('https://techglobal-training.com/frontend/project-1');
     });
 
-    it('should validate the Gender radio button ', () => {
-        cy.get('.control > .label').should('have.text', 'Gender *');
-        cy.get('div.control label.label')})
+    it.only('should validate the Gender radio button ', () => {
+        cy.contains('Gender *').should('have.text', 'Gender *')
 
-        it('should validate the options and their states', () => {
-            const options = ['Male', 'Female', 'Prefer not to disclose'];
-            options.forEach(option => {
-                cy.contains(option)
-                  .should('be.visible')
-                  .and('not.be.checked');
+        const exptedTexts = ['Male', 'Female', 'Prefer not to disclose']
+
+        cy.get('.radio > input').first().should('have.attr', 'required')
+
+        cy.get('.radio > input').each((ele, index) => {
+            cy.wrap(ele).parent().should('have.text', exptedTexts[index])
+            cy.wrap(ele).should('not.be.selected').and('be.enabled')
+        })
             });
         });
-});
+
 
 /*
 tests case -04
@@ -86,9 +91,37 @@ describe('Email Input Box Validation', () => {
     before(() => {
         cy.visit('https://techglobal-training.com/frontend/project-1');
     });
-    it('should validate the Email input box', () => {
-        cy.get('div:nth-child(4) label:nth-child(1)').should('not.have.attr', 'required');
-        cy.get('input[placeholder="Enter your email"]').should('have.attr', 'placeholder', 'Enter your email');
+   const testCases = [
+    {
+        discreption: "Adress input box",
+        label: "Address",
+        placeholder: "Enter your address",
+        required:false
+    },
+    {
+        discreption: "Email input box",
+        label: "Email",
+        placeholder: "Enter your email",
+        required: true
+    },
+    {
+        discreption: "Phone input box",
+        label: "Phone",
+        placeholder: "Enter your phone number",
+        required:false
+    },
+    {
+        discreption: "Email input box",
+        label: "Email",
+        placeholder: "Enter your Email",
+        required:false
+    },
+   ]
+
+   testCases.forEach(test =>){
+
+    it('test case - ')
+   }
         
     });
 });
@@ -193,3 +226,12 @@ describe('Consent Checkbox Validation', () => {
         cy.get('.checkbox').click().should('not.be.checked');
     });
 });
+
+
+it("iFrame Test Case", () => {
+    cy.get("#form_frame")
+      .its("0.contentDocument.body")
+      .should("not.be.empty")
+      .within(() => {
+          cy.get("#first_name").type("John");
+          cy.get("#last_name").type("Doe"); }); })
