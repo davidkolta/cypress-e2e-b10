@@ -19,3 +19,6 @@ import "cypress-real-events";
 import '@4tw/cypress-drag-drop';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+const registerCypressGrep = require('@cypress/grep')
+registerCypressGrep()
